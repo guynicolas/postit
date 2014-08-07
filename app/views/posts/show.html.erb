@@ -1,0 +1,39 @@
+ <% if logged_in? %> 
+   <p class="pull-right">
+    [<%= link_to 'edit this post', edit_post_path(@post) %>]
+  </p>
+<% end %> 
+
+<p>
+  <%= render @post.categories %> 
+</p>
+
+<%= render 'shared/content_title', title: @post.title %>
+
+<p>
+  <%= @post.description %>
+  <hr/>
+</p>
+
+<% if logged_in? %> 
+  <%= form_for [@post, @comment] do |f| %> 
+    <%= render 'shared/errors', obj: @comment %> 
+    <div class="control-group"> 
+      <%= f.label :body, 'Leave a comment:' %>
+      <%= f.text_area :body,  rows: 3, class: "span 4" %>
+        <br/>
+      <%= f.submit 'Create Comment', class: 'btn btn-primary' %> 
+    </div>
+  <% end %> 
+<% end %> 
+
+<p>Comments:</p>
+
+<% @post.comments.each do |comment| %> 
+  <div class='well'>
+    <%= comment.body %> 
+    <br/>
+    <span class='quiet'>posted by </span> <%= comment.creator.username %>
+    <small>at <%= display_datetime(comment.created_at) %></small>
+  </div>
+<% end %> 
