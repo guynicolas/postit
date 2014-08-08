@@ -1,7 +1,7 @@
 class PostsController < ApplicationController
 
   before_action :set_post, only: [:show, :edit, :update]
-  before_action :require_user, expect: [:show, :index]
+  before_action :require_user, except: [:show, :index]
 
   def index
     @posts = Post.all 
@@ -21,7 +21,7 @@ class PostsController < ApplicationController
     if @post.save
       flash[:notice] = 'Your post was created.'
       redirect_to posts_path
-    else  
+    else   
       render :new  
     end
   end
