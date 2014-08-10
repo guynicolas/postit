@@ -21,10 +21,11 @@
 
   def update
     
+    
   end
 
   def user_params
-    params.require(:user).permit(:usernane, :password)
+    params.require(:user).permit(:username, :password)
   end
 end 
 
